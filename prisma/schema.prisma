@@ -36,7 +36,7 @@ model Signature {
   document    Document @relation(fields: [documentId], references: [id])
   userId      String
   user        User     @relation(fields: [userId], references: [id])
-  signatureImg String
+  signatureImg String  // Base64 ou URL
   createdAt   DateTime @default(now())
   signedAt    DateTime?
 }
