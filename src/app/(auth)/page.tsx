@@ -1,5 +1,6 @@
 'use client';
 import { signIn } from 'next-auth/react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
@@ -41,6 +42,17 @@ export default function LoginPage() {
           Entrar
         </button>
       </form>
+      <div className='mt-6 text-center'>
+        <p className='text-sm text-gray-600'>
+          Não tem uma conta?
+          <Link
+            href='/register'
+            className='text-blue-600 hover:underline font-medium'
+          >
+            Registrar-se
+          </Link>
+        </p>
+      </div>
     </div>
   );
 }
