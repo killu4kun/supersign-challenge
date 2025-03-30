@@ -12,7 +12,7 @@ export default function ProtectedRoute({
   const router = useRouter();
 
   useEffect(() => {
-    if (status === 'unauthenticated') router.push('/login');
+    if (status === 'unauthenticated') router.push('/');
   }, [status, router]);
 
   if (status === 'loading') return <div>Carregando...</div>;
