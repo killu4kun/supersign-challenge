@@ -1,24 +1,30 @@
-import nextJest from 'next/jest';
+/** @type {import('jest').Config} */
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const nextJest = require('next/jest');
 
 const createJestConfig = nextJest({
-  // Caminho para o seu app Next.js
+  // Fornece o caminho para o seu aplicativo Next.js para carregar next.config.js e arquivos .env em seu ambiente de teste
   dir: './',
 });
 
-// Configuração personalizada do Jest
+// Adicione qualquer configuração personalizada que você queira passar para o Jest
 const customJestConfig = {
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  setupFilesAfterEnv: ['<rootDir>/__tests__/setup.ts'],
   testEnvironment: 'jest-environment-jsdom',
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
-  testMatch: ['**/__tests__/**/*.test.ts?(x)'],
+  testMatch: ['**/__tests__/**/*.test.[jt]s?(x)'],
   collectCoverageFrom: [
     'src/**/*.{js,jsx,ts,tsx}',
     '!src/**/*.d.ts',
     '!src/**/*.stories.{js,jsx,ts,tsx}',
     '!src/**/*.test.{js,jsx,ts,tsx}',
   ],
+  coverageDirectory: 'coverage',
+  coverageReporters: ['text', 'lcov'],
+  verbose: true,
 };
 
-export default createJestConfig(customJestConfig); 
+// createJestConfig é exportado desta forma para garantir que next/jest possa carregar a configuração do Next.js que é assíncrona
+module.exports = createJestConfig(customJestConfig);
