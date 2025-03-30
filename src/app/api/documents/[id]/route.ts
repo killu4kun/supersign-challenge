@@ -9,7 +9,7 @@ import { NextRequest } from 'next/server';
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
-) {
+): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     const { id } = params;
@@ -55,7 +55,7 @@ export async function GET(
 export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } }
-) {
+): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     const { id } = params;
