@@ -134,7 +134,7 @@ export const SignatureCanvas = ({
       <div className='flex gap-2'>
         <button
           onClick={clearCanvas}
-          className='px-4 py-2 bg-gray-200 rounded hover:bg-gray-300'
+          className='px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 text-black'
         >
           Limpar
         </button>

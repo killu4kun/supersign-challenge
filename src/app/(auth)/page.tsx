@@ -31,47 +31,67 @@ export default function LoginPage() {
   };
 
   return (
-    <div className='max-w-md mx-auto mt-10 p-6 bg-white rounded shadow'>
-      <h1 className='text-2xl font-bold mb-4'>Login</h1>
+    <div className='max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md'>
+      <h1 className='text-2xl font-bold mb-4 text-slate-800'>Login</h1>
 
       {error && (
-        <div className='mb-4 p-3 bg-red-100 text-red-700 rounded'>{error}</div>
+        <div className='mb-4 p-3 bg-red-50 text-red-700 rounded-md border border-red-200'>
+          {error}
+        </div>
       )}
 
       {searchParams.get('registered') && (
-        <div className='mb-4 p-3 bg-green-100 text-green-700 rounded'>
+        <div className='mb-4 p-3 bg-green-50 text-green-700 rounded-md border border-green-200'>
           Conta criada com sucesso! Faça login para continuar.
         </div>
       )}
 
-      <form onSubmit={handleSubmit}>
-        <input
-          name='email'
-          type='email'
-          placeholder='Email'
-          className='w-full p-2 mb-3 border rounded'
-          required
-        />
-        <input
-          name='password'
-          type='password'
-          placeholder='Senha'
-          className='w-full p-2 mb-4 border rounded'
-          required
-        />
+      <form onSubmit={handleSubmit} className='space-y-4'>
+        <div>
+          <label
+            htmlFor='email'
+            className='block text-sm font-medium text-slate-700 mb-1'
+          >
+            Email
+          </label>
+          <input
+            id='email'
+            name='email'
+            type='email'
+            placeholder='Digite seu email'
+            className='w-full p-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-700 placeholder-slate-400'
+            required
+          />
+        </div>
+        <div>
+          <label
+            htmlFor='password'
+            className='block text-sm font-medium text-slate-700 mb-1'
+          >
+            Senha
+          </label>
+          <input
+            id='password'
+            name='password'
+            type='password'
+            placeholder='Digite sua senha'
+            className='w-full p-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-700 placeholder-slate-400'
+            required
+          />
+        </div>
         <button
           type='submit'
-          className='w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700'
+          className='w-full bg-slate-800 text-white p-2 rounded-md hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500 transition-colors duration-200'
         >
           Entrar
         </button>
       </form>
       <div className='mt-6 text-center'>
-        <p className='text-sm text-gray-600'>
+        <p className='text-sm text-slate-600'>
           Não tem uma conta?
           <Link
             href='/register'
-            className='text-blue-600 hover:underline font-medium'
+            className='text-indigo-600 hover:text-indigo-500 hover:underline font-medium ml-1'
           >
             Registrar-se
           </Link>

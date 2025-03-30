@@ -30,7 +30,7 @@ export default function UploadPage() {
 
   return (
     <div className='max-w-md mx-auto p-6 bg-white rounded shadow'>
-      <h2 className='text-xl font-bold mb-4'>Upload de Documento</h2>
+      <h2 className='text-xl font-bold mb-4 text-black'>Upload de Documento</h2>
 
       {error && (
         <div className='mb-4 p-3 bg-red-100 text-red-700 rounded'>{error}</div>
@@ -41,7 +41,7 @@ export default function UploadPage() {
           type='file'
           accept='.pdf'
           onChange={(e) => setFile(e.target.files?.[0] || null)}
-          className='mb-4 w-full p-2 border rounded'
+          className='mb-4 w-full p-2 border rounded text-black'
           required
         />
         <button

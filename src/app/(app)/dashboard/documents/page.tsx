@@ -27,11 +27,11 @@ export default function DocumentsPage() {
 
   return (
     <div className='p-6'>
-      <h1 className='text-2xl font-bold mb-6'>Meus Documentos</h1>
+      <h1 className='text-2xl font-bold mb-6 text-black'>Meus Documentos</h1>
       <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
         {documents.map((doc) => (
           <div key={doc.id} className='border p-4 rounded-lg'>
-            <h3 className='font-semibold'>{doc.name}</h3>
+            <h3 className='font-semibold text-black'>{doc.name}</h3>
             <p
               className={`text-sm ${
                 doc.status === 'PENDING' ? 'text-yellow-600' : 'text-green-600'

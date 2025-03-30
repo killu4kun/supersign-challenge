@@ -1,4 +1,5 @@
 import ProtectedRoute from '@/components/shared/ProtectedRoute';
+import Navbar from '@/components/shared/Navbar';
 
 export default function DashboardLayout({
   children,
@@ -7,12 +8,11 @@ export default function DashboardLayout({
 }) {
   return (
     <ProtectedRoute>
-      <div className='flex min-h-screen'>
-        <aside className='w-64 bg-gray-800 text-white p-4'>
-          {/* Sidebar content */}
-          <nav>...</nav>
-        </aside>
-        <main className='flex-1 p-8'>{children}</main>
+      <div className='min-h-screen bg-slate-50'>
+        <Navbar />
+        <main className='max-w-7xl mx-auto py-6 sm:px-6 lg:px-8'>
+          <div className='bg-white shadow-sm rounded-lg p-6'>{children}</div>
+        </main>
       </div>
     </ProtectedRoute>
   );

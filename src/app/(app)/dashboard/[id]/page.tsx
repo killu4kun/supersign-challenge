@@ -84,7 +84,7 @@ export default function DocumentSignPage() {
     <div className='p-6 space-y-8'>
       <div className='flex justify-between items-center'>
         <div className='flex items-center gap-4'>
-          <h1 className='text-2xl font-bold'>{document.name}</h1>
+          <h1 className='text-2xl font-bold text-black'>{document.name}</h1>
           <DocumentStatusBadge status={document.status} />
         </div>
         <button
@@ -101,14 +101,14 @@ export default function DocumentSignPage() {
         <div className='border rounded-lg overflow-hidden'>
           <iframe
             src={`/uploads/${document.fileKey}`}
-            className='w-full h-[500px]'
+            className='w-full h-[500px] '
             title={document.name}
           />
         </div>
 
         {/* Área de Assinatura */}
         <div className='space-y-6'>
-          <h2 className='text-xl font-semibold'>Assinar Documento</h2>
+          <h2 className='text-xl font-semibold text-black'>Assinar Documento</h2>
 
           {document.status === 'SIGNED' ? (
             <div className='space-y-4'>
