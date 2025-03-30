@@ -4,11 +4,17 @@ import { GithubButton } from '@/components/auth/GihubButton';
 
 export default function RegisterPage() {
   return (
-    <div className='max-w-md mx-auto p-6'>
-      <div className='bg-white p-8 rounded-lg shadow-md'>
-        <h1 className='text-2xl font-bold text-center mb-6 text-slate-800'>
-          Criar Conta
-        </h1>
+    <div className='min-h-[calc(100vh-4rem)] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8'>
+      <div className='max-w-md w-full space-y-8 bg-white p-8 rounded-xl shadow-lg'>
+        <div>
+          <h1 className='text-3xl font-bold text-center text-slate-800'>
+            Criar Conta
+          </h1>
+          <p className='mt-2 text-center text-sm text-slate-600'>
+            Crie sua conta para começar a usar o SuperSign
+          </p>
+        </div>
+
         <RegisterForm />
 
         <div className='mt-6'>
@@ -28,27 +34,17 @@ export default function RegisterPage() {
           </div>
         </div>
 
-        <div className='mt-6 text-center'>
+        <div className='text-center'>
           <p className='text-sm text-slate-600'>
             Já tem uma conta?{' '}
             <Link
               href='/'
-              className='text-indigo-600 hover:text-indigo-500 hover:underline'
+              className='font-medium text-indigo-600 hover:text-indigo-500 hover:underline'
             >
               Faça login
             </Link>
           </p>
         </div>
-
-        {/* Divisor opcional para login social */}
-        <div className='flex items-center my-6'>
-          <div className='flex-1 border-t border-slate-200'></div>
-          <span className='px-3 text-slate-500 text-sm'>OU</span>
-          <div className='flex-1 border-t border-slate-200'></div>
-        </div>
-
-        {/* Componente de login social (opcional) */}
-        {/* <SocialButtons /> */}
       </div>
     </div>
   );
