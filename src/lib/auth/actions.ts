@@ -26,7 +26,7 @@ export async function registerUser(data: unknown) {
     });
 
     return { success: true };
-  } catch (error) {
+  } catch {
     return { error: { _form: ['Erro ao criar usuário'] } };
   }
 }
