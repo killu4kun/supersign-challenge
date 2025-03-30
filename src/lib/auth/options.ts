@@ -1,12 +1,17 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import GithubProvider from 'next-auth/providers/github';
 import { prisma } from '@/lib/prisma/client';
 import bcrypt from 'bcryptjs';
 
 export const authOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
+    GithubProvider({
+      clientId: process.env.GITHUB_ID!,
+      clientSecret: process.env.GITHUB_SECRET!,
+    }),
     CredentialsProvider({
       name: 'credentials',
       credentials: {
