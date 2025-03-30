@@ -6,16 +6,13 @@ import { unlink } from 'fs/promises';
 import path from 'path';
 import { NextRequest } from 'next/server';
 
-type RouteContext = {
-  params: {
-    id: string;
-  };
-};
-
-export async function GET(request: NextRequest, context: RouteContext) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
     const session = await getServerSession(authOptions);
-    const { id } = context.params;
+    const { id } = params;
 
     if (!session?.user?.id) {
       return NextResponse.json(
@@ -55,10 +52,13 @@ export async function GET(request: NextRequest, context: RouteContext) {
   }
 }
 
-export async function DELETE(request: NextRequest, context: RouteContext) {
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
     const session = await getServerSession(authOptions);
-    const { id } = context.params;
+    const { id } = params;
 
     if (!session?.user?.id) {
       return NextResponse.json(
