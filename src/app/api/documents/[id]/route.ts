@@ -7,9 +7,9 @@ import path from 'path';
 import { NextRequest } from 'next/server';
 
 type Props = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
 export async function GET(

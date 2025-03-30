@@ -2,10 +2,10 @@
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { GithubButton } from '@/components/auth/GihubButton';
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [error, setError] = useState<string | null>(null);
@@ -113,23 +113,31 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <div className='mt-6 space-y-3'>
+          <div className='mt-6 grid grid-cols-2 gap-3'>
             <GithubButton />
           </div>
         </div>
 
         <div className='text-center'>
           <p className='text-sm text-slate-600'>
-            Não tem uma conta?
+            Não tem uma conta?{' '}
             <Link
               href='/register'
-              className='font-medium text-indigo-600 hover:text-indigo-500 hover:underline ml-1'
+              className='font-medium text-indigo-600 hover:text-indigo-500'
             >
-              Registrar-se
+              Registre-se
             </Link>
           </p>
         </div>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div>Carregando...</div>}>
+      <LoginForm />
+    </Suspense>
   );
 }
