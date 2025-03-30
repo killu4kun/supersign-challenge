@@ -14,43 +14,57 @@ export const authOptions = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        console.log('Credenciais recebidas:', credentials);
+        if (!credentials?.email || !credentials?.password) {
+          throw new Error('Credenciais inválidas');
+        }
+
         const user = await prisma.user.findUnique({
-          where: { email: credentials?.email },
+          where: { email: credentials.email },
         });
+
         if (!user) {
-          console.log('Usuário não encontrado');
-          return null;
+          throw new Error('Usuário não encontrado');
         }
 
         const isValid = await bcrypt.compare(
-          credentials?.password!,
+          credentials.password,
           user.password!
         );
+
         if (!isValid) {
-          console.log('Senha inválida');
-          return null;
+          throw new Error('Senha inválida');
         }
-        console.log('Usuário autenticado com sucesso:', user);
+
         return {
           id: user.id,
           email: user.email,
+          name: user.name,
         };
       },
     }),
   ],
   callbacks: {
-    async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
-      console.log('Redirecionando para:', url);
-      return url.startsWith(baseUrl) ? url : baseUrl;
+    async jwt({ token, user }: { token: any; user?: { id: string } }) {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+    async session({ session, token }: { session: any; token: any }) {
+      if (session.user) {
+        session.user.id = token.id as string;
+      }
+      return session;
     },
   },
   pages: {
-    error: '/auth/error',
-    signIn: '/',
+    signIn: '/login',
+    error: '/login',
   },
-  session: { strategy: 'jwt' as 'jwt' },
-  secret: process.env.NEXTAUTH_SECRET!,
+  session: {
+    strategy: 'jwt' as const,
+  },
+  secret: process.env.NEXTAUTH_SECRET,
 };
 
 export default NextAuth(authOptions);
