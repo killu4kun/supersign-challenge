@@ -20,6 +20,7 @@ export default function UploadPage() {
     try {
       await api.post('/upload', formData);
       alert('Documento enviado com sucesso!');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error(error);
       setError(error.response?.data?.error || 'Erro ao enviar documento');

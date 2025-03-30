@@ -1,6 +1,5 @@
 'use client';
-import { useRef, useState, useCallback } from 'react';
-import { saveAs } from 'file-saver';
+import { useRef, useState } from 'react';
 
 type SignatureCanvasProps = {
   documentId: string;
