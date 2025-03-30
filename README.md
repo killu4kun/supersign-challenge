@@ -179,7 +179,7 @@ Para configurar a autenticação com o GitHub:
 4. Clique em "Register application"
 5. Copie o Client ID e Client Secret
 6. Crie um arquivo `.env.local` na raiz do projeto:
-```
+
 
 ## 🧪 Testes
 
