@@ -6,13 +6,19 @@ import { unlink } from 'fs/promises';
 import path from 'path';
 import { NextRequest } from 'next/server';
 
+type Props = {
+  params: {
+    id: string;
+  };
+};
+
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  props: Props
 ): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
-    const { id } = params;
+    const { id } = await props.params;
 
     if (!session?.user?.id) {
       return NextResponse.json(
@@ -54,11 +60,11 @@ export async function GET(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  props: Props
 ): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
-    const { id } = params;
+    const { id } = await props.params;
 
     if (!session?.user?.id) {
       return NextResponse.json(
