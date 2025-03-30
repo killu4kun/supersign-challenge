@@ -29,7 +29,7 @@ export function RegisterForm() {
     }
 
     if (result?.success) {
-      router.push('/login?registered=true');
+      router.push('/?registered=true');
     }
   });
 
