@@ -166,6 +166,75 @@ GITHUB_SECRET="seu_github_secret"
 
 
 ```
+## 🔑 Configuração do GitHub OAuth
+
+Para configurar a autenticação com o GitHub:
+
+1. Acesse [GitHub Developer Settings](https://github.com/settings/developers)
+2. Clique em "New OAuth App"
+3. Preencha os campos:
+   - Application name: SuperSign
+   - Homepage URL: http://localhost:3000
+   - Authorization callback URL: http://localhost:3000/api/auth/callback/github
+4. Clique em "Register application"
+5. Copie o Client ID e Client Secret
+6. Crie um arquivo `.env.local` na raiz do projeto:
+```
+
+## 🧪 Testes
+
+O projeto utiliza Jest e React Testing Library para testes. Para executar os testes:
+
+```bash
+# Executar todos os testes
+npm test
+
+# Executar testes em modo watch
+npm run test:watch
+
+# Executar testes com cobertura
+npm run test:coverage
+```
+
+### Estrutura dos Testes
+
+Os testes estão organizados da seguinte forma:
+
+```
+__tests__/
+├── components/
+│   └── auth/
+│       └── RegisterForm.test.tsx
+├── lib/
+│   └── schemas/
+│       └── auth-schema.test.ts
+└── setup.ts
+```
+
+### Cobertura de Testes
+
+O projeto mantém uma cobertura mínima de 70% dos testes para o core da aplicação. Para verificar a cobertura:
+
+1. Execute `npm run test:coverage`
+2. Abra o arquivo `coverage/lcov-report/index.html` no navegador
+
+
+```env
+GITHUB_ID=seu_client_id
+GITHUB_SECRET=seu_client_secret
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=uma_string_aleatória_segura
+```
+
+### Variáveis de Ambiente
+
+| Variável | Descrição |
+|----------|-----------|
+| GITHUB_ID | Client ID do aplicativo GitHub OAuth |
+| GITHUB_SECRET | Client Secret do aplicativo GitHub OAuth |
+| NEXTAUTH_URL | URL base da aplicação (ex: http://localhost:3000) |
+| NEXTAUTH_SECRET | Chave secreta para criptografia das sessões |
+
 
 ## 📝 Licença
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
