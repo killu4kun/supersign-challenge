@@ -4,14 +4,15 @@ import { authOptions } from '@/lib/auth/options';
 import { prisma } from '@/lib/prisma/client';
 import { unlink } from 'fs/promises';
 import path from 'path';
+import { NextRequest } from 'next/server';
 
 export async function GET(
-  request: Request,
-  context: { params: { id: string } }
+  request: NextRequest,
+  { params }: { params: { id: string } }
 ) {
   try {
     const session = await getServerSession(authOptions);
-    const { id } = await context.params;
+    const { id } = params;
 
     if (!session?.user?.id) {
       return NextResponse.json(
@@ -52,12 +53,12 @@ export async function GET(
 }
 
 export async function DELETE(
-  request: Request,
-  context: { params: { id: string } }
+  request: NextRequest,
+  { params }: { params: { id: string } }
 ) {
   try {
     const session = await getServerSession(authOptions);
-    const { id } = await context.params;
+    const { id } = params;
 
     if (!session?.user?.id) {
       return NextResponse.json(
