@@ -4,6 +4,7 @@ import { authOptions } from '@/lib/auth/options';
 import { prisma } from '@/lib/prisma/client';
 import { writeFile } from 'fs/promises';
 import path from 'path';
+import fs from 'fs/promises';
 
 export async function POST(req: Request) {
   try {
@@ -36,10 +37,18 @@ export async function POST(req: Request) {
       );
     }
 
+    // Cria o diretório de uploads se não existir
+    const uploadsDir = path.join(process.cwd(), 'public/uploads');
+    try {
+      await fs.access(uploadsDir);
+    } catch {
+      await fs.mkdir(uploadsDir, { recursive: true });
+    }
+
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
     const fileKey = `${Date.now()}-${file.name}`;
-    const uploadPath = path.join(process.cwd(), 'public/uploads', fileKey);
+    const uploadPath = path.join(uploadsDir, fileKey);
 
     await writeFile(uploadPath, buffer);
 
