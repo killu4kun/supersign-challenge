@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import api from '@/lib/axios';
 import { SignatureCanvas } from '@/components/documents/SignatureCanvas';
 import { DocumentStatusBadge } from '@/components/documents/DocumentStatusBadge';
@@ -19,9 +19,11 @@ type DocumentDetails = {
 
 export default function DocumentSignPage() {
   const { id } = useParams();
+  const router = useRouter();
   const [document, setDocument] = useState<DocumentDetails | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     const fetchDocument = async () => {
@@ -37,6 +39,25 @@ export default function DocumentSignPage() {
     };
     fetchDocument();
   }, [id]);
+
+  const handleDelete = async () => {
+    if (!document) return;
+
+    if (!confirm('Tem certeza que deseja excluir este documento?')) {
+      return;
+    }
+
+    setIsDeleting(true);
+    try {
+      await api.delete(`/documents/${id}`);
+      router.push('/dashboard/documents');
+    } catch (error: any) {
+      console.error('Error deleting document:', error);
+      setError(error.response?.data?.error || 'Erro ao excluir documento');
+    } finally {
+      setIsDeleting(false);
+    }
+  };
 
   const handleSignatureSave = (signatureData: string) => {
     if (!document) return;
@@ -62,8 +83,17 @@ export default function DocumentSignPage() {
   return (
     <div className='p-6 space-y-8'>
       <div className='flex justify-between items-center'>
-        <h1 className='text-2xl font-bold'>{document.name}</h1>
-        <DocumentStatusBadge status={document.status} />
+        <div className='flex items-center gap-4'>
+          <h1 className='text-2xl font-bold'>{document.name}</h1>
+          <DocumentStatusBadge status={document.status} />
+        </div>
+        <button
+          onClick={handleDelete}
+          disabled={isDeleting}
+          className='bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed'
+        >
+          {isDeleting ? 'Excluindo...' : 'Excluir Documento'}
+        </button>
       </div>
 
       <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
