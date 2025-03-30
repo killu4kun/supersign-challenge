@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import axios from 'axios';
+import api from '@/lib/axios';
 import { SignatureCanvas } from '@/components/documents/SignatureCanvas';
 import { DocumentStatusBadge } from '@/components/documents/DocumentStatusBadge';
 
@@ -21,14 +21,16 @@ export default function DocumentSignPage() {
   const { id } = useParams();
   const [document, setDocument] = useState<DocumentDetails | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchDocument = async () => {
       try {
-        const { data } = await axios.get(`/api/documents/${id}`);
+        const { data } = await api.get(`/documents/${id}`);
         setDocument(data);
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error fetching document:', error);
+        setError(error.response?.data?.error || 'Erro ao carregar documento');
       } finally {
         setIsLoading(false);
       }
@@ -53,8 +55,9 @@ export default function DocumentSignPage() {
     });
   };
 
-  if (isLoading) return <div>Loading...</div>;
-  if (!document) return <div>Document not found</div>;
+  if (isLoading) return <div>Carregando...</div>;
+  if (error) return <div className='text-red-600'>{error}</div>;
+  if (!document) return <div>Documento não encontrado</div>;
 
   return (
     <div className='p-6 space-y-8'>
