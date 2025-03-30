@@ -5,10 +5,11 @@ import { prisma } from '@/lib/prisma/client';
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
   try {
     const session = await getServerSession(authOptions);
+    const { id } = await context.params;
 
     if (!session?.user?.id) {
       return NextResponse.json(
@@ -19,7 +20,7 @@ export async function GET(
 
     const document = await prisma.document.findUnique({
       where: {
-        id: params.id,
+        id,
         userId: session.user.id,
       },
       include: {
